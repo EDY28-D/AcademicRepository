@@ -47,7 +47,7 @@ namespace Proyect.Controllers
             }).ToList();
             return Ok(eventos);
         }
-
+        //si se trabajo eh
         [HttpPost("guardar")]
         public ActionResult Guardar([FromBody] CalendarEvent calendarEvent)
         {
