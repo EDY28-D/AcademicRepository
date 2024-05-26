@@ -46,6 +46,11 @@ namespace Proyect.EFCore.Repository
             }
         }
 
+        public bool EmailExiste(string email)
+        {
+            return _bd.RegistroAsesors.Any(p => p.Email == email && p.Bhabilitado == 1);
+        }
+
         public List<RegistroAsesor> filtrar(string nombre)
         {
             return _bd.RegistroAsesors.Where(p => p.FullName.Contains(nombre)

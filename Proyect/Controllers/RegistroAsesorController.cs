@@ -48,6 +48,12 @@ namespace Proyect.Controllers
         [HttpDelete("eliminar/{idRegistroAsesor}")]
         public ActionResult EliminarRegistroAsesor([FromRoute] int idRegistroAsesor)
         {
+
+            var registroExistente = _registroasesor.listar().FirstOrDefault(r => r.AsesorId == idRegistroAsesor);
+            if (registroExistente == null)
+            {
+                return NotFound("Registro no encontrado.");
+            }
             try
             {
                 _registroasesor.eliminar(idRegistroAsesor);
@@ -59,12 +65,21 @@ namespace Proyect.Controllers
                 return BadRequest("Error al eliminar: " + ex.Message);
             }
         }
-
         [HttpPost("guardar")]
         public ActionResult GuardarRegistro([FromBody] RegistroAsesor oRegistroAsesor)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
+                if (_registroasesor.EmailExiste(oRegistroAsesor.Email))
+                {
+                    return BadRequest("El correo electrónico ya existe.");
+                }
+
                 if (oRegistroAsesor.AsesorId == 0)
                 {
                     _registroasesor.agregar(oRegistroAsesor);
@@ -81,6 +96,7 @@ namespace Proyect.Controllers
                 return BadRequest("Error al guardar: " + ex.Message);
             }
         }
+
         [HttpPut("editar/{id}")]  // Uso de HttpPut como es típico para operaciones de edición
         public ActionResult EditarRegistro([FromRoute] int id, [FromBody] RegistroAsesor oRegistroAsesor)
         {
@@ -111,5 +127,9 @@ namespace Proyect.Controllers
             }
         }
 
+
+
+
     }
+
 }

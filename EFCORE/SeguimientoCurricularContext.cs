@@ -9,6 +9,7 @@ public partial class SeguimientoCurricularContext : DbContext
 {
     public SeguimientoCurricularContext()
     {
+
     }
 
     public SeguimientoCurricularContext(DbContextOptions<SeguimientoCurricularContext> options)

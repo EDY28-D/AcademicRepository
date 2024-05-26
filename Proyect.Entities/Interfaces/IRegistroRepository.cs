@@ -14,6 +14,7 @@ namespace Proyect.Entities.Interfaces
         void agregar(RegistroAsesor oRegistroAsesor);
         void editar(RegistroAsesor registroAsesor);
         void eliminar(int idRegistroAsesor);
+        bool EmailExiste(string email);
 
     }
 }
